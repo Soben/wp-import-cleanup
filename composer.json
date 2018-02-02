@@ -1,0 +1,21 @@
+{
+    "name": "big-sea/xml-parser",
+    "description": "Parser for Wordpress XML Importer to strip out certain posts.",
+    "type": "project",
+    "license": "UNLICENSED",
+    "authors": [
+        {
+            "name": "Chris Lagasse",
+            "email": "chris@bigsea.co"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "BigSea\\XML\\": "src/"
+        }
+    },
+    "require": {
+        "sabre/xml": "~1.5"
+    }
+}
