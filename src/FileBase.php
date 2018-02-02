@@ -8,7 +8,7 @@ class FileBase
 {
     protected $file;
     protected $xmlService;
-    protected $xmlNodes;
+    protected $xmlNodes = [];
 
     public function __construct($xmlFile) {
         $this->file = $xmlFile;

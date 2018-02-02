@@ -5,6 +5,10 @@ namespace BigSea\XML;
 class FileReader extends FileBase
 {
     public function __construct($xmlFile) {
+        if (!file_exists($xmlFile)) {
+            throw new \Exception('Missing XML Export File');
+        }
+
         parent::__construct($xmlFile);
 
         $xmlNodes = $this->xmlService->parse(file_get_contents($xmlFile));
@@ -12,19 +16,32 @@ class FileReader extends FileBase
         $this->xmlNodes = $xmlNodes;
     }
 
-    public function getCleanSlate()
+    public function getBase()
     {
         $response = $this->xmlNodes[0];
-        $channelChildren = [];
+        $nonItems = [];
 
         foreach ($this->xmlNodes[0]['value'] as $child) {
             if (strpos($child['name'], '}item') === FALSE) {
-                $channelChildren[] = $child;
+                $nonItems[] = $child;
             }
         }
 
-        $response['value'] = $channelChildren;
+        $response['value'] = $nonItems;
 
         return $response;
+    }
+
+    public function getItems()
+    {
+        $items = [];
+
+        foreach ($this->xmlNodes[0]['value'] as $child) {
+            if (strpos($child['name'], '}item') !== FALSE) {
+                $items[] = $child;
+            }
+        }
+
+        return $items;
     }
 }
